@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "module": "esnext",
+    "target": "es5",
+    "allowJs": false,
+    "checkJs": false,
+    "jsx": "react",
+    "outDir": "./build",
+    "rootDir": "./lib",
+    "removeComments": true,
+    "noEmit": true,
+    "pretty": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "moduleResolution": "node",
+    "esModuleInterop": true
+  },
+  "include": ["templates"]
+}

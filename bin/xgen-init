@@ -1,0 +1,50 @@
+#!/usr/bin/env node
+const path = require("path");
+const fs = require("fs");
+const chalk = require("chalk");
+const inquirer = require("inquirer");
+const { copy } = require("../utils");
+const log = console.log;
+
+const xgenJsonPath = `${process.cwd()}/xgen.json`;
+const templatePath = `${process.cwd()}/.templates`;
+
+// 检测xgen.json是否存在
+(function() {
+  if (!fs.existsSync(xgenJsonPath)) {
+    const newJson = fs.createWriteStream(xgenJsonPath);
+    fs.createReadStream(path.join(__dirname, "..", "./xgen.json")).pipe(
+      newJson
+    );
+    newJson.on("close", () => {
+      log(chalk.green("xgen.json创建成功!"));
+    });
+    newJson.on("error", () => {
+      log(chalk.red("xgen.json创建失败!"));
+    });
+  } else {
+    log(chalk.red("xgen.json已存在!"));
+  }
+})();
+
+// 检测templates文件夹是否存在
+(function() {
+  if (!fs.existsSync(templatePath)) {
+    fs.mkdirSync(templatePath);
+    inquirer
+      .prompt([
+        {
+          type: "list",
+          name: "项目语言",
+          choices: ["TypeScript", "JavaScript"]
+        }
+      ])
+      .then(types => {
+        const type = types["项目语言"] === "JavaScript" ? "js" : "ts";
+        copy(path.join(__dirname, "..", `./templates/${type}`), templatePath);
+        log(chalk.green("templates创建成功!"));
+      });
+  } else {
+    log(chalk.red("templates文件夹已存在!"));
+  }
+})();

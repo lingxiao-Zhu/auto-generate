@@ -1,0 +1,31 @@
+{
+  "name": "auto-generate",
+  "version": "1.0.0",
+  "license": "MIT",
+  "description": "auto create dir cli",
+  "author": "zhulingxiao <larry_zhu@foxmail.com>",
+  "bin": {
+    "xgen": "./bin/xgen"
+  },
+  "registry": {
+    "git": "git@github.com:lingxiao-Zhu/auto-generate.git"
+  },
+  "engine": {
+    "node": ">=8.0.0"
+  },
+  "dependencies": {
+    "async": "^3.1.0",
+    "chalk": "^2.4.2",
+    "commander": "^3.0.2",
+    "inquirer": "^7.0.0",
+    "ora": "^3.4.0"
+  },
+  "devDependencies": {
+    "cz-conventional-changelog": "3.0.2"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
+}

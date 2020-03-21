@@ -1,0 +1,72 @@
+#!/usr/bin/env node
+const fs = require("fs");
+const path = require("path");
+const chalk = require("chalk");
+const ora = require("ora");
+const readline = require("readline");
+const inquirer = require("inquirer");
+const { copy } = require(path.join(__dirname, "..", "./utils"));
+
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+
+// 启动程序
+main(chalk.green("请输入文件夹名称: "));
+
+/**
+ * 通过控制台获取目标目录名称
+ * @param {*} q 控制台问题描述
+ */
+function main(q) {
+  rl.question(q, dirName => {
+    if (!dirName) {
+      main(chalk.yellow("文件夹名称不能为空，请重新输入："));
+    } else {
+      chooseType(dirName);
+    }
+  });
+}
+/**
+ * 选择模版类型
+ * @param {string} dirName 文件夹名称
+ */
+function chooseType(dirName) {
+  const configPath = `${process.cwd()}/xgen.json`;
+  const isHaveConfig = fs.existsSync(configPath);
+  if (!isHaveConfig) {
+    console.log(chalk.red("请使用 'xgen init'命令 创建xgen.json文件"));
+    process.exit(0);
+  }
+
+  const types = require(configPath).types;
+
+  inquirer
+    .prompt([
+      {
+        type: "list",
+        name: "模版类型",
+        choices: Object.keys(types)
+      }
+    ])
+    .then(typeHash => {
+      const type = types[typeHash["模版类型"]];
+      const { dir, template } = type;
+      const to = path.join(process.cwd(), dir, dirName.trim());
+      if (!fs.existsSync(`${process.cwd()}/${dir}`)) {
+        console.log(
+          chalk.red(`请先创建 ${`${dir}`} 文件夹！或者修改xgen.json文件`)
+        );
+        return;
+      }
+      if (!fs.existsSync(to)) {
+        const spinner = ora("正在创建中").start();
+        fs.mkdirSync(to);
+        copy(path.join(process.cwd(), template), to);
+        spinner.succeed("创建成功!!");
+      } else {
+        console.log(chalk.yellow("文件夹已存在!"));
+      }
+    });
+}
