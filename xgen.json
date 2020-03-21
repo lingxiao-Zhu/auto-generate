@@ -1,12 +1,12 @@
 {
-    "types": {
-        "页面": {
-            "template": "./templates/view",
-            "dir": "./src/pages/"
-        },
-        "公共组件": {
-            "template": "./templates/component",
-            "dir": "./src/components/"
-        }
+  "types": {
+    "页面": {
+      "template": "./.templates/view",
+      "dir": "./src/pages/"
+    },
+    "公共组件": {
+      "template": "./.templates/component",
+      "dir": "./src/components/"
     }
+  }
 }

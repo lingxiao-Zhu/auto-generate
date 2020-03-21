@@ -16,7 +16,7 @@ npm install auto-generate -g
 
 ## 使用
 
-第一步，初始化环境，生成 xgen.json 和 templates 文件夹。
+第一步，初始化环境，生成 xgen.json 和 .templates 文件夹。
 
 ```javascript
 $ xgen init
@@ -27,18 +27,18 @@ $ xgen init
 {
     "types": {
         "view": {
-            "template": "./template/view",
-            "dir": "./src/pages/"
+            "template": "./.templates/view", // 模版地址
+            "dir": "./src/pages/" // 生成地址
         },
         "component": {
-            "template": "./template/component",
+            "template": "./.templates/component",
             "dir": "./src/components/"
         }
     }
 }
 ```
 
-第二步：在 src 下创建 pages 文件夹和 components 文件夹，如果是接入老项目，就修改 xgen.json 的配置。
+第二步：可以跟进项目情况修改 xgen.json 以及 template 下的内容。
 
 第三步，根据需要创建模板
 

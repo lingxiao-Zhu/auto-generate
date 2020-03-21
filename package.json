@@ -4,6 +4,9 @@
   "license": "MIT",
   "description": "auto create dir cli",
   "author": "zhulingxiao <larry_zhu@foxmail.com>",
+  "scripts": {
+    "version": "conventional-changelog -p angular -i CHANGELOG.md -w"
+  },
   "bin": {
     "xgen": "./bin/xgen"
   },
