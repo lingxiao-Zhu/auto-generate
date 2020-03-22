@@ -1,17 +1,17 @@
-# auto-generate
+# node-generate-cli
 
 一键创建模版文件夹的 cli。
 
 ## 安装
 
 ```javascript
-yarn global add auto-generate
+yarn global add node-generate-cli
 ```
 
 or
 
 ```javascript
-npm install auto-generate -g
+npm install node-generate-cli -g
 ```
 
 ## 使用
